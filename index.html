@@ -376,44 +376,61 @@ EST. 2018
 </div>
 </div>
 </section>
-<section class="max-w-3xl mx-auto border-t border-news-ink pt-16 pb-24" id="contact">
-<h3 class="font-masthead text-3xl text-center mb-2 font-bold">Letter to the Editor</h3>
-<p class="text-center font-serif italic text-gray-500 mb-12">Regarding opportunities, collaborations, or general feedback.</p>
-<form action="https://formsubmit.co/ibrahimshadev@gmail.com" method="POST" class="bg-white p-8 md:p-12 border border-gray-200 shadow-xl relative">
+<section class="mb-24" id="contact">
+<div class="flex justify-between items-center mb-6">
+<span class="text-xs font-bold uppercase tracking-[0.2em] bg-news-ink text-white px-2 py-1">Letters &amp; Correspondence</span>
+<span class="text-xs font-serif italic text-gray-500">Section E — Reader Services</span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start border-t border-news-ink pt-8">
+<div class="lg:col-span-4">
+<h3 class="font-headline text-3xl md:text-4xl font-bold leading-tight mb-4">Letter to the Editor</h3>
+<div class="border-t border-news-ink w-12 mb-4"></div>
+<p class="text-justify-newspaper text-sm leading-relaxed font-display text-gray-700 mb-4">The Ibrahimsha Times welcomes letters from readers regarding opportunities, collaborations, and general enquiries.</p>
+<p class="text-justify-newspaper text-sm leading-relaxed font-display text-gray-700 mb-6">All correspondence is delivered directly to the Editor-in-Chief's inbox. Responses are typically dispatched within 24–48 hours, business days permitting.</p>
+<div class="text-[10px] font-mono border border-news-ink p-2 inline-block">
+EDITORIAL OFFICE<br/>
+PATTUKKOTTAI, INDIA<br/>
+REMOTE: SINGAPORE
+</div>
+</div>
+<div class="lg:col-span-8">
+<form action="https://formsubmit.co/ibrahimshadev@gmail.com" method="POST" class="border border-news-ink">
 <input type="hidden" name="_subject" value="New Letter to the Editor — The Ibrahimsha Times"/>
 <input type="hidden" name="_captcha" value="false"/>
 <input type="hidden" name="_template" value="table"/>
 <input type="text" name="_honey" style="display:none"/>
-<div class="absolute top-0 left-0 w-4 h-4 border-l-2 border-t-2 border-black -translate-x-1 -translate-y-1"></div>
-<div class="absolute top-0 right-0 w-4 h-4 border-r-2 border-t-2 border-black translate-x-1 -translate-y-1"></div>
-<div class="absolute bottom-0 left-0 w-4 h-4 border-l-2 border-b-2 border-black -translate-x-1 translate-y-1"></div>
-<div class="absolute bottom-0 right-0 w-4 h-4 border-r-2 border-b-2 border-black translate-x-1 translate-y-1"></div>
-<div class="space-y-8">
-<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-<div class="relative">
-<label class="absolute -top-3 left-0 text-[10px] font-bold uppercase tracking-widest bg-white pr-2 text-gray-500">Name</label>
-<input name="name" required class="w-full border-0 border-b border-gray-300 focus:border-black focus:ring-0 bg-transparent px-0 py-2 font-serif placeholder-gray-300 text-lg" placeholder="Jane Doe" type="text"/>
+<div class="border-b border-news-ink px-6 py-3 bg-news-paper">
+<span class="text-[10px] font-bold uppercase tracking-[0.2em]">Compose Your Letter</span>
 </div>
-<div class="relative">
-<label class="absolute -top-3 left-0 text-[10px] font-bold uppercase tracking-widest bg-white pr-2 text-gray-500">Email</label>
-<input name="email" required class="w-full border-0 border-b border-gray-300 focus:border-black focus:ring-0 bg-transparent px-0 py-2 font-serif placeholder-gray-300 text-lg" placeholder="jane@post.com" type="email"/>
+<div class="p-6 md:p-8 space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label class="block text-[10px] font-bold uppercase tracking-widest mb-2 text-gray-500">Your Name</label>
+<input name="name" required class="w-full border-0 border-b border-news-ink focus:border-primary focus:ring-0 bg-transparent px-0 py-2 font-serif placeholder-gray-300" placeholder="Jane Doe" type="text"/>
+</div>
+<div>
+<label class="block text-[10px] font-bold uppercase tracking-widest mb-2 text-gray-500">Return Address (Email)</label>
+<input name="email" required class="w-full border-0 border-b border-news-ink focus:border-primary focus:ring-0 bg-transparent px-0 py-2 font-serif placeholder-gray-300" placeholder="jane@post.com" type="email"/>
 </div>
 </div>
-<div class="relative">
-<label class="absolute -top-3 left-0 text-[10px] font-bold uppercase tracking-widest bg-white pr-2 text-gray-500">Subject</label>
-<input name="_subject" class="w-full border-0 border-b border-gray-300 focus:border-black focus:ring-0 bg-transparent px-0 py-2 font-serif placeholder-gray-300 text-lg" placeholder="Regarding: Opportunity" type="text"/>
+<div>
+<label class="block text-[10px] font-bold uppercase tracking-widest mb-2 text-gray-500">Subject of Correspondence</label>
+<input name="_subject" class="w-full border-0 border-b border-news-ink focus:border-primary focus:ring-0 bg-transparent px-0 py-2 font-serif placeholder-gray-300" placeholder="Re: Opportunity at Your Firm" type="text"/>
 </div>
-<div class="relative mt-8">
-<label class="absolute -top-3 left-0 text-[10px] font-bold uppercase tracking-widest bg-white pr-2 text-gray-500">Message</label>
-<textarea name="message" required class="w-full border border-gray-300 focus:border-black focus:ring-0 bg-gray-50 p-4 font-serif mt-2 min-h-[150px]" placeholder="Dear Editor..."></textarea>
+<div>
+<label class="block text-[10px] font-bold uppercase tracking-widest mb-2 text-gray-500">Body of Letter</label>
+<textarea name="message" required class="w-full border border-news-ink focus:border-primary focus:ring-0 bg-news-paper p-4 font-serif min-h-[150px] placeholder-gray-300" placeholder="Dear Editor,&#10;&#10;I am writing to you regarding..."></textarea>
 </div>
-<div class="flex justify-end pt-4">
-<button type="submit" class="bg-news-ink text-white font-headline font-bold text-sm uppercase tracking-widest px-10 py-4 hover:bg-primary transition-colors duration-300">
-                            Submit Letter
-                        </button>
+<div class="flex items-center justify-between border-t border-news-ink pt-6">
+<span class="text-[10px] font-mono uppercase tracking-wide text-gray-400">All letters are confidential</span>
+<button type="submit" class="bg-news-ink text-white font-headline font-bold text-[10px] uppercase tracking-widest px-8 py-3 hover:bg-primary transition-colors duration-300">
+Dispatch Letter
+</button>
 </div>
 </div>
 </form>
+</div>
+</div>
 </section>
 <footer class="border-t border-gray-300 pt-8 pb-4 flex flex-col md:flex-row justify-between items-center text-[10px] uppercase tracking-widest text-gray-500">
 <p>© 2026 The Ibrahimsha Times Company.</p>
