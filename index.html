@@ -322,7 +322,11 @@
 <section class="max-w-3xl mx-auto border-t border-news-ink pt-16 pb-24" id="contact">
 <h3 class="font-masthead text-3xl text-center mb-2 font-bold">Letter to the Editor</h3>
 <p class="text-center font-serif italic text-gray-500 mb-12">Regarding opportunities, collaborations, or general feedback.</p>
-<form class="bg-white p-8 md:p-12 border border-gray-200 shadow-xl relative">
+<form action="https://formsubmit.co/ibrahimshadev@gmail.com" method="POST" class="bg-white p-8 md:p-12 border border-gray-200 shadow-xl relative">
+<input type="hidden" name="_subject" value="New Letter to the Editor — The Ibrahimsha Times"/>
+<input type="hidden" name="_captcha" value="false"/>
+<input type="hidden" name="_template" value="table"/>
+<input type="text" name="_honey" style="display:none"/>
 <div class="absolute top-0 left-0 w-4 h-4 border-l-2 border-t-2 border-black -translate-x-1 -translate-y-1"></div>
 <div class="absolute top-0 right-0 w-4 h-4 border-r-2 border-t-2 border-black translate-x-1 -translate-y-1"></div>
 <div class="absolute bottom-0 left-0 w-4 h-4 border-l-2 border-b-2 border-black -translate-x-1 translate-y-1"></div>
@@ -331,23 +335,23 @@
 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 <div class="relative">
 <label class="absolute -top-3 left-0 text-[10px] font-bold uppercase tracking-widest bg-white pr-2 text-gray-500">Name</label>
-<input class="w-full border-0 border-b border-gray-300 focus:border-black focus:ring-0 bg-transparent px-0 py-2 font-serif placeholder-gray-300 text-lg" placeholder="Jane Doe" type="text"/>
+<input name="name" required class="w-full border-0 border-b border-gray-300 focus:border-black focus:ring-0 bg-transparent px-0 py-2 font-serif placeholder-gray-300 text-lg" placeholder="Jane Doe" type="text"/>
 </div>
 <div class="relative">
 <label class="absolute -top-3 left-0 text-[10px] font-bold uppercase tracking-widest bg-white pr-2 text-gray-500">Email</label>
-<input class="w-full border-0 border-b border-gray-300 focus:border-black focus:ring-0 bg-transparent px-0 py-2 font-serif placeholder-gray-300 text-lg" placeholder="jane@post.com" type="email"/>
+<input name="email" required class="w-full border-0 border-b border-gray-300 focus:border-black focus:ring-0 bg-transparent px-0 py-2 font-serif placeholder-gray-300 text-lg" placeholder="jane@post.com" type="email"/>
 </div>
 </div>
 <div class="relative">
 <label class="absolute -top-3 left-0 text-[10px] font-bold uppercase tracking-widest bg-white pr-2 text-gray-500">Subject</label>
-<input class="w-full border-0 border-b border-gray-300 focus:border-black focus:ring-0 bg-transparent px-0 py-2 font-serif placeholder-gray-300 text-lg" placeholder="Regarding: Opportunity" type="text"/>
+<input name="_subject" class="w-full border-0 border-b border-gray-300 focus:border-black focus:ring-0 bg-transparent px-0 py-2 font-serif placeholder-gray-300 text-lg" placeholder="Regarding: Opportunity" type="text"/>
 </div>
 <div class="relative mt-8">
 <label class="absolute -top-3 left-0 text-[10px] font-bold uppercase tracking-widest bg-white pr-2 text-gray-500">Message</label>
-<textarea class="w-full border border-gray-300 focus:border-black focus:ring-0 bg-gray-50 p-4 font-serif mt-2 min-h-[150px]" placeholder="Dear Editor..."></textarea>
+<textarea name="message" required class="w-full border border-gray-300 focus:border-black focus:ring-0 bg-gray-50 p-4 font-serif mt-2 min-h-[150px]" placeholder="Dear Editor..."></textarea>
 </div>
 <div class="flex justify-end pt-4">
-<button class="bg-news-ink text-white font-headline font-bold text-sm uppercase tracking-widest px-10 py-4 hover:bg-primary transition-colors duration-300">
+<button type="submit" class="bg-news-ink text-white font-headline font-bold text-sm uppercase tracking-widest px-10 py-4 hover:bg-primary transition-colors duration-300">
                             Submit Letter
                         </button>
 </div>
