@@ -47,6 +47,10 @@
         }
     </script>
     <style>
+        main img {
+            filter: saturate(0.55);
+        }
+
         body {
             font-feature-settings: "kern", "liga", "onum";
             -webkit-font-smoothing: antialiased;
@@ -57,6 +61,90 @@
             text-align: justify;
             text-justify: inter-word;
             hyphens: auto;
+            -webkit-hyphens: auto;
+            -ms-hyphens: auto;
+        }
+
+        /* Halftone Dot Texture */
+        .halftone-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .halftone-container::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle, #000 1.2px, transparent 1.2px);
+            background-size: 4px 4px;
+            opacity: 0.12;
+            pointer-events: none;
+            mix-blend-mode: multiply;
+            transition: opacity 0.5s ease;
+        }
+
+        .halftone-container:hover::after {
+            opacity: 0.04;
+        }
+
+        .evening-edition .halftone-container::after {
+            background-image: radial-gradient(circle, #fff 1.2px, transparent 1.2px);
+            opacity: 0.08;
+        }
+
+        /* Classifieds Styling */
+        .classified-ad {
+            border: 1px solid var(--news-ink);
+            padding: 0.75rem;
+            position: relative;
+            transition: transform 0.2s ease;
+        }
+
+        .classified-ad:hover {
+            transform: scale(1.02);
+            z-index: 10;
+            background-color: white;
+            box-shadow: 4px 4px 0px var(--news-ink);
+        }
+
+        .evening-edition .classified-ad:hover {
+            background-color: #2a2a2a;
+            box-shadow: 4px 4px 0px #e8e0d4;
+        }
+
+        /* Wanted poster: evening-edition palette */
+        body.evening-edition .wanted-poster {
+            background-color: #221d17 !important;
+            border-color: #caa66c !important;
+        }
+
+        body.evening-edition .wanted-poster:hover {
+            background-color: #2b241b !important;
+            box-shadow: 4px 4px 0px #caa66c;
+        }
+
+        body.evening-edition .wanted-poster .wanted-frame,
+        body.evening-edition .wanted-poster .wanted-rule {
+            border-color: #caa66c !important;
+        }
+
+        body.evening-edition .wanted-poster .wanted-ornament,
+        body.evening-edition .wanted-poster .wanted-star,
+        body.evening-edition .wanted-poster .wanted-label,
+        body.evening-edition .wanted-poster .wanted-title,
+        body.evening-edition .wanted-poster .wanted-copy,
+        body.evening-edition .wanted-poster .wanted-reward,
+        body.evening-edition .wanted-poster .wanted-reward-line {
+            color: #f1d6a8 !important;
+        }
+
+        body.evening-edition .wanted-poster .wanted-cta {
+            background-color: #caa66c !important;
+            color: #1a1a1a !important;
+        }
+
+        body.evening-edition .wanted-poster .wanted-cta:hover {
+            background-color: #ddb982 !important;
         }
 
         .drop-cap::first-letter {
@@ -108,6 +196,7 @@
         /* Ink blot scroll effect */
         .ink-blot {
             position: absolute;
+            z-index: 5;
             width: 80vw;
             max-width: 1200px;
             pointer-events: none;
@@ -156,6 +245,147 @@
             }
         }
 
+        /* Breaking news ticker */
+        .ticker-wrap {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .ticker-content {
+            display: inline-block;
+            animation: ticker-scroll 45s linear infinite;
+        }
+
+        .ticker-content:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes ticker-scroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Newspaper fold line */
+        .fold-line {
+            position: relative;
+            height: 12px;
+            margin: 3rem 0;
+        }
+
+        .fold-line::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -5%;
+            right: -5%;
+            height: 1px;
+            background: linear-gradient(90deg,
+                    transparent 0%,
+                    rgba(0, 0, 0, 0.06) 10%,
+                    rgba(0, 0, 0, 0.12) 50%,
+                    rgba(0, 0, 0, 0.06) 90%,
+                    transparent 100%);
+        }
+
+        .fold-line::after {
+            content: '';
+            position: absolute;
+            top: calc(50% + 1px);
+            left: -5%;
+            right: -5%;
+            height: 4px;
+            background: linear-gradient(180deg,
+                    rgba(0, 0, 0, 0.04) 0%,
+                    transparent 100%);
+        }
+
+        /* Evening edition (dark mode) */
+        .evening-edition {
+            --news-paper: #1a1a1a;
+            --news-ink: #e8e0d4;
+            --news-gray: #333;
+            --news-line: #444;
+        }
+
+        .evening-edition body,
+        body.evening-edition {
+            background-color: #1a1a1a;
+            color: #e8e0d4;
+        }
+
+        body.evening-edition .bg-news-paper {
+            background-color: #1a1a1a !important;
+        }
+
+        body.evening-edition .text-news-ink {
+            color: #e8e0d4 !important;
+        }
+
+        body.evening-edition .border-news-ink {
+            border-color: #e8e0d4 !important;
+        }
+
+        body.evening-edition .bg-news-ink {
+            background-color: #e8e0d4 !important;
+            color: #1a1a1a !important;
+        }
+
+        body.evening-edition .text-gray-800,
+        body.evening-edition .text-gray-900,
+        body.evening-edition .text-gray-700 {
+            color: #c8c0b4 !important;
+        }
+
+        body.evening-edition .text-gray-500,
+        body.evening-edition .text-gray-400 {
+            color: #8a8278 !important;
+        }
+
+        body.evening-edition .border-gray-300,
+        body.evening-edition .border-gray-200 {
+            border-color: #3a3a3a !important;
+        }
+
+        body.evening-edition .bg-gray-50,
+        body.evening-edition .bg-gray-100,
+        body.evening-edition .bg-white {
+            background-color: #242424 !important;
+        }
+
+        body.evening-edition img:not(.no-invert) {
+            filter: grayscale(100%) contrast(110%) brightness(0.85);
+        }
+
+        body.evening-edition #weather-icon {
+            filter: invert(1);
+        }
+
+        body.evening-edition .mix-blend-multiply {
+            opacity: 0.15 !important;
+        }
+
+        body.evening-edition .ink-blot {
+            mix-blend-mode: screen;
+            filter: grayscale(100%) invert(1) contrast(125%) brightness(1.12);
+        }
+
+        body.evening-edition .ink-blot.ink-dark {
+            opacity: 0.7;
+        }
+
+        body.evening-edition .ink-blot.ink-spread {
+            opacity: 0.22;
+        }
+
+        body.evening-edition .ink-blot.ink-fade {
+            opacity: 0.16;
+        }
+
         .vertical-masthead {
             writing-mode: vertical-rl;
             text-orientation: mixed;
@@ -187,7 +417,7 @@
 <body
     class="bg-news-paper text-news-ink font-display min-h-screen relative overflow-x-hidden selection:bg-primary selection:text-white">
     <div class="absolute inset-0 pointer-events-none z-50 mix-blend-multiply opacity-40"
-        style="background-image: url('images/paper-bg.jpg'); background-repeat: repeat;"></div>
+        style="background-image: url('images/paper-bg.webp'); background-size: 100% auto; background-repeat: repeat-y;"></div>
     <div class="flex flex-col lg:flex-row min-h-screen max-w-[1600px] mx-auto relative z-10">
         <header
             class="lg:w-24 lg:min-h-screen lg:sticky lg:top-0 border-b lg:border-b-0 lg:border-r border-news-ink bg-news-paper z-40 flex lg:flex-col justify-between items-center py-6 px-4 lg:py-12 shrink-0">
@@ -203,6 +433,8 @@
                     <span class="text-news-line">•</span>
                     <a href="https://www.linkedin.com/in/ibrahim-sha-dev/" target="_blank"
                         class="hover:text-primary transition-colors">LinkedIn</a>
+                    <span class="text-news-line">•</span>
+                    <button onclick="toggleEdition()" class="hover:text-primary transition-colors cursor-pointer" id="edition-toggle-mobile">Evening Ed.</button>
                 </div>
             </div>
             <div class="hidden lg:flex flex-col h-full items-center justify-between w-full">
@@ -224,27 +456,42 @@
                     <a href="https://www.linkedin.com/in/ibrahim-sha-dev/" target="_blank"
                         class="text-[9px] font-bold uppercase tracking-[0.2em] text-gray-400 hover:text-primary transition-colors"
                         title="LinkedIn">IN</a>
+                    <button id="edition-toggle-desktop" onclick="toggleEdition()" title="Switch to Evening Edition"
+                        class="text-[9px] font-bold uppercase tracking-[0.2em] text-gray-400 hover:text-primary transition-colors mt-2 cursor-pointer">
+                        EVE
+                    </button>
                 </div>
             </div>
         </header>
         <main class="flex-1 px-6 md:px-12 py-12 lg:px-20 lg:py-16 bg-news-paper"
             style="position: relative; overflow: hidden;">
-            <video class="ink-blot" muted playsinline preload="none" aria-hidden="true"
+            <video class="ink-blot" muted playsinline loop preload="none" aria-hidden="true"
                 style="top: 2%; right: -8%; width: 55vw; rotate: 180deg;">
                 <source src="videos/ink-drops.webm" type="video/webm"></video>
-            <video class="ink-blot" muted playsinline preload="none" aria-hidden="true"
+            <video class="ink-blot" muted playsinline loop preload="none" aria-hidden="true"
                 style="top: 22%; left: -12%; width: 65vw; rotate: 40deg;">
                 <source src="videos/ink-splash.webm" type="video/webm"></video>
-            <video class="ink-blot" muted playsinline preload="none" aria-hidden="true"
+            <video class="ink-blot" muted playsinline loop preload="none" aria-hidden="true"
                 style="top: 45%; left: -5%; width: 70vw;">
                 <source src="videos/ink-drops.webm" type="video/webm"></video>
-            <video class="ink-blot" muted playsinline preload="none" aria-hidden="true"
+            <video class="ink-blot" muted playsinline loop preload="none" aria-hidden="true"
                 style="top: 63%; right: -8%; width: 50vw; rotate: 270deg;">
                 <source src="videos/ink-splash.webm" type="video/webm"></video>
-            <video class="ink-blot" muted playsinline preload="none" aria-hidden="true"
+            <video class="ink-blot" muted playsinline loop preload="none" aria-hidden="true"
                 style="top: 85%; left: 5%; width: 40vw; rotate: 135deg;">
                 <source src="videos/ink-splattered.webm" type="video/webm"></video>
             <div class="border-b border-news-ink pb-2 mb-16 font-sans">
+                <div class="hidden md:flex items-center justify-between text-[9px] uppercase tracking-[0.2em] text-gray-400 mb-2 pb-1.5 border-b border-dotted border-gray-300">
+                    <div class="flex items-center gap-2">
+                        <a href="https://github.com/ibrahimshadev" target="_blank" class="font-bold text-news-ink hover:text-primary transition-colors">GitHub</a>
+                        <span class="text-gray-300">•</span>
+                        <a href="https://www.linkedin.com/in/ibrahim-sha-dev/" target="_blank" class="font-bold text-news-ink hover:text-primary transition-colors">LinkedIn</a>
+                    </div>
+                    <button onclick="toggleEdition()" id="edition-toggle-weather" class="flex items-center gap-1.5 cursor-pointer" title="Switch to Evening Edition">
+                        <img id="weather-icon" src="images/icon-moon.png" alt="Toggle edition" class="w-7 h-7 object-contain no-invert">
+                        <span id="weather-text" class="text-[10px] text-gray-400">Partly Cloudy, 29°C</span>
+                    </button>
+                </div>
                 <div class="flex items-end justify-between gap-4 md:grid md:grid-cols-[1fr_auto_1fr] md:items-end">
                     <div class="text-xs tracking-widest uppercase md:text-left">Backend & AI Systems Desk</div>
                     <div class="hidden md:block text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black leading-none tracking-tight text-news-ink text-center px-4"
@@ -261,7 +508,7 @@
                         Southern India</span>
                 </h2>
                 <img src="images/wax-seal.webp" alt="Software Developer seal"
-                    class="absolute -top-12 -left-15 md:-top-16 md:-left-20 w-16 md:w-24 lg:w-32 z-20 rotate-[-18deg] pointer-events-none drop-shadow-lg" />
+                    class="absolute -top-12 -left-15 md:-top-16 md:-left-20 w-16 md:w-24 lg:w-32 z-20 rotate-[-18deg] pointer-events-none drop-shadow-lg no-invert" />
                 <div
                     class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start mt-12 border-t border-news-ink pt-8">
                     <div class="lg:col-span-3 flex flex-col justify-between h-full">
@@ -283,16 +530,15 @@
                     </div>
                     <div class="lg:col-span-6">
                         <figure class="block w-full">
-                            <div class="w-full aspect-[4/3] bg-gray-100 relative overflow-hidden">
-                                <img alt="Engineer workstation at 3 AM with multiple monitors"
-                                    class="w-full h-full object-cover grayscale contrast-125 hover:scale-105 transition-transform duration-1000 ease-out"
+                            <div class="w-full bg-gray-100 relative overflow-hidden halftone-container">
+                                <img alt="Portrait of Ibrahimsha — Senior Backend & AI Systems Engineer"
+                                    class="w-full hover:scale-105 transition-transform duration-1000 ease-out"
                                     src="images/hero.webp" />
                             </div>
                             <figcaption class="flex justify-between items-start mt-3 border-t border-news-ink pt-2">
                                 <span class="text-[10px] uppercase tracking-wider font-bold">Fig. 1</span>
-                                <span class="text-xs italic font-serif text-gray-600 max-w-xs text-right">The remote
-                                    workstation from which production deployments are orchestrated across Singapore and
-                                    India.</span>
+                                <span class="text-xs italic font-serif text-gray-600 max-w-xs text-right">The subject,
+                                    photographed at an undisclosed remote location.</span>
                             </figcaption>
                         </figure>
                     </div>
@@ -315,10 +561,12 @@
                         </p>
                     </div>
                 </div>
+                <div class="text-right mt-6">
+                    <a href="#open-source" class="text-[10px] uppercase tracking-[0.2em] italic text-gray-400 hover:text-primary transition-colors">Continued on Page A2 →</a>
+                </div>
             </section>
-            <div class="mb-16"></div>
-            <section class="mb-24">
-                <div class="flex justify-between items-center mb-6">
+            <section class="mb-24" id="open-source">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-2">
                     <span class="text-xs font-bold uppercase tracking-[0.2em] bg-primary text-white px-2 py-1">Special
                         Edition — Open Source</span>
                     <span class="text-xs font-serif italic text-gray-500">Late Extra — Technology &amp;
@@ -328,9 +576,9 @@
                     <div class="lg:col-span-7">
                         <figure class="block w-full">
                             <div
-                                class="border border-gray-200 p-2 bg-white shadow-sm -rotate-1 hover:rotate-0 transition-transform duration-500">
-                                <img alt="Voxly announcement — classic Hollywood spinning newspaper"
-                                    class="w-full aspect-video object-cover" src="images/voxly-banner.webp" />
+                                class="">
+                                <img alt="Voxly announcement — cross-platform dictation"
+                                    class="w-full" src="images/voxly-banner.webp" />
                             </div>
                             <figcaption class="flex justify-between items-start mt-3 border-t border-news-ink pt-2">
                                 <span class="text-[10px] uppercase tracking-wider font-bold">Fig. 0</span>
@@ -357,8 +605,8 @@
                             <p class="mb-6">"I got tired of typing," the engineer stated. Sources confirm this was not,
                                 in fact, a joke.</p>
                         </div>
-                        <a href="https://github.com/ibrahimshadev/Voxly" target="_blank"
-                            class="inline-block text-[10px] uppercase tracking-widest border-b border-primary pb-0.5 hover:text-primary transition-colors">View
+                        <a href="https://ibrahimsha.is-a.dev/Voxly/" target="_blank"
+                            class="inline-block text-[10px] uppercase tracking-widest border-b border-primary pb-0.5 hover:text-primary transition-colors mb-6">View
                             Source Code on GitHub →</a>
                         <div class="mt-6 text-[10px] font-mono border border-news-ink p-2 inline-block">
                             STACK: TAURI • RUST • SOLIDJS<br />
@@ -366,9 +614,12 @@
                         </div>
                     </div>
                 </div>
+                <div class="text-right mt-6">
+                    <a href="#careers" class="text-[10px] uppercase tracking-[0.2em] italic text-gray-400 hover:text-primary transition-colors">Continued on Page A3 →</a>
+                </div>
             </section>
-            <section class="mb-24">
-                <div class="flex justify-between items-center mb-8">
+            <section class="mb-24" id="careers">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-2">
                     <span class="text-xs font-bold uppercase tracking-[0.2em] bg-news-ink text-white px-2 py-1">Recent
                         Developments</span>
                     <span class="text-xs font-serif italic text-gray-500">Page 2 — Technology &amp; Intelligence</span>
@@ -393,9 +644,9 @@
                         </div>
                         <figure class="mb-6 order-1 md:order-2">
                             <div
-                                class="border border-gray-200 p-2 bg-white shadow-sm rotate-1 hover:rotate-0 transition-transform duration-500">
+                                class="border border-gray-200 p-2 bg-white shadow-sm rotate-1 hover:rotate-0 transition-transform duration-500 halftone-container">
                                 <img alt="AI command and analysis hub"
-                                    class="w-full aspect-video object-cover grayscale"
+                                    class="w-full aspect-[4/5] object-cover"
                                     src="images/card1-ai-pipeline.webp" />
                             </div>
                             <figcaption class="text-[10px] text-right mt-2 italic text-gray-500">Fig 2. Multi-agent RAG
@@ -405,9 +656,11 @@
                     <article
                         class="flex flex-col h-full border-r-0 lg:border-r border-gray-300 lg:pr-12 last:border-r-0">
                         <figure class="mb-6">
-                            <img alt="OSINT cybersecurity operations center"
-                                class="w-full aspect-[3/4] object-cover grayscale brightness-110 contrast-125"
-                                src="images/card2-cybersecurity.webp" />
+                            <div class="halftone-container">
+                                <img alt="OSINT cybersecurity operations center"
+                                    class="w-full aspect-[4/5] object-cover"
+                                    src="images/card2-cybersecurity.webp" />
+                            </div>
                             <figcaption
                                 class="text-[10px] mt-2 italic text-gray-500 border-l border-news-ink pl-2 ml-2">Fig 3.
                                 OSINT intelligence platform.</figcaption>
@@ -442,10 +695,10 @@
                             </p>
                         </div>
                         <figure class="mt-auto">
-                            <div class="relative">
+                            <div class="relative halftone-container">
                                 <div class="absolute inset-0 border border-news-ink translate-x-1 translate-y-1"></div>
                                 <img alt="Server room with network testing terminal"
-                                    class="relative w-full h-48 object-cover grayscale z-10 border border-news-ink bg-white"
+                                    class="relative w-full aspect-[4/5] object-cover z-10 border border-news-ink bg-white"
                                     src="images/card3-network-testing.webp" />
                             </div>
                             <figcaption class="text-[10px] uppercase tracking-widest mt-3 text-right">Fig 4. Testing
@@ -453,38 +706,19 @@
                         </figure>
                     </article>
                 </div>
+                <div class="text-right mt-6">
+                    <a href="#profile" class="text-[10px] uppercase tracking-[0.2em] italic text-gray-400 hover:text-primary transition-colors">Profile continues on Page B1 →</a>
+                </div>
             </section>
-            <section class="mb-24">
+            <section class="mb-24" id="profile">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-2">
                     <span
                         class="text-xs font-bold uppercase tracking-[0.2em] bg-news-ink text-white px-2 py-1 shrink-0">Profile
                         — The Engineer</span>
                     <span class="text-xs font-serif italic text-gray-500">Section C — Persons of Interest</span>
                 </div>
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start border-t border-news-ink pt-8">
-                    <div class="lg:col-span-3">
-                        <figure class="max-w-[280px] mx-auto lg:mx-0 lg:max-w-[220px]">
-                            <div class="relative">
-                                <div class="absolute inset-0 border border-news-ink translate-x-1.5 translate-y-1.5">
-                                </div>
-                                <img alt="Portrait of Ibrahimsha"
-                                    class="relative w-full aspect-[3/4] object-cover grayscale contrast-110 z-10 border border-news-ink bg-white"
-                                    src="images/me.jpg" />
-                            </div>
-                            <figcaption class="flex justify-between items-start mt-3 border-t border-news-ink pt-2">
-                                <span class="text-[10px] uppercase tracking-wider font-bold">Fig. 5</span>
-                                <span class="text-xs italic font-serif text-gray-600 text-right">The subject,
-                                    photographed at an undisclosed remote location.</span>
-                            </figcaption>
-                        </figure>
-                        <div
-                            class="mt-6 text-[10px] font-mono border border-news-ink p-2 inline-block mx-auto lg:mx-0 block lg:inline-block text-center lg:text-left">
-                            IBRAHIMSHA<br />
-                            PATTUKKOTTAI, INDIA<br />
-                            EST. 2018
-                        </div>
-                    </div>
-                    <div class="lg:col-span-9">
+                <div class="border-t border-news-ink pt-8">
+                    <div>
                         <h3 class="font-headline text-3xl md:text-4xl font-bold leading-tight mb-6">The Man Behind the
                             Pipeline: A Profile</h3>
                         <div class="border-t border-news-ink w-16 mb-6"></div>
@@ -504,8 +738,7 @@
                             <div>
                                 <p
                                     class="mb-4 text-xl md:text-2xl font-headline font-bold leading-tight border-l-2 border-primary pl-4 not-italic">
-                                    "Production is the only environment that matters — everything else is a dress
-                                    rehearsal."</p>
+                                    "When systems run right, they disappear into the product."</p>
                                 <p class="mb-4">Today, as Lead Engineer at 01Digital, he architects multi-agent AI
                                     systems, mentors junior engineers to mid-level, and hires technical talent through
                                     custom assessments he designed himself.</p>
@@ -529,9 +762,10 @@
                     <span class="text-xs font-bold uppercase tracking-widest">Section D</span>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
-                    <div class="group">
+                    <div class="group classified-ad">
+                        <div class="bg-news-ink text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 mb-3 text-center">AI / ML BOUNTY</div>
                         <div class="flex items-center justify-between border-b border-gray-300 pb-1 mb-3">
-                            <h4 class="font-bold text-sm uppercase tracking-widest">AI / ML</h4>
+                            <h4 class="font-bold text-sm uppercase tracking-widest">Neural Assets</h4>
                             <span class="font-display italic text-lg text-gray-400">pg. 4</span>
                         </div>
                         <ul class="space-y-2 text-xs font-mono text-gray-700">
@@ -557,9 +791,10 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="group">
+                    <div class="group classified-ad">
+                        <div class="bg-news-ink text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 mb-3 text-center">BACKEND SERVICES</div>
                         <div class="flex items-center justify-between border-b border-gray-300 pb-1 mb-3">
-                            <h4 class="font-bold text-sm uppercase tracking-widest">Backend</h4>
+                            <h4 class="font-bold text-sm uppercase tracking-widest">Logic Stack</h4>
                             <span class="font-display italic text-lg text-gray-400">pg. 5</span>
                         </div>
                         <ul class="space-y-2 text-xs font-mono text-gray-700">
@@ -585,9 +820,10 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="group">
+                    <div class="group classified-ad">
+                        <div class="bg-news-ink text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 mb-3 text-center">INFRASTRUCTURE</div>
                         <div class="flex items-center justify-between border-b border-gray-300 pb-1 mb-3">
-                            <h4 class="font-bold text-sm uppercase tracking-widest">Infrastructure</h4>
+                            <h4 class="font-bold text-sm uppercase tracking-widest">Cloud Core</h4>
                             <span class="font-display italic text-lg text-gray-400">pg. 8</span>
                         </div>
                         <ul class="space-y-2 text-xs font-mono text-gray-700">
@@ -597,7 +833,7 @@
                                 <span>Ops</span>
                             </li>
                             <li class="flex justify-between items-baseline">
-                                <span class="font-bold text-news-ink">AWS (Fargate/ECS)</span>
+                                <span class="font-bold text-news-ink">AWS (Fargate)</span>
                                 <span class="w-full border-b border-dotted border-gray-400 mx-2"></span>
                                 <span>Cloud</span>
                             </li>
@@ -608,20 +844,37 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="group bg-gray-50 p-4 border border-gray-200">
-                        <div class="flex items-center justify-between border-b border-gray-300 pb-1 mb-3">
-                            <h4 class="font-bold text-sm uppercase tracking-widest text-primary">Inquiries</h4>
-                            <span class="font-display italic text-lg text-gray-400">pg. 9</span>
+                    <div class="group classified-ad wanted-poster relative bg-amber-50 border-[3px] border-amber-900 p-1">
+                        <!-- Corner ornaments -->
+                        <span class="absolute top-0.5 left-1.5 text-amber-700 text-[8px] leading-none wanted-ornament">&#10022;</span>
+                        <span class="absolute top-0.5 right-1.5 text-amber-700 text-[8px] leading-none wanted-ornament">&#10022;</span>
+                        <span class="absolute bottom-0.5 left-1.5 text-amber-700 text-[8px] leading-none wanted-ornament">&#10022;</span>
+                        <span class="absolute bottom-0.5 right-1.5 text-amber-700 text-[8px] leading-none wanted-ornament">&#10022;</span>
+                        <!-- Inner frame -->
+                        <div class="border-double border-4 border-amber-800 px-3 py-3 wanted-frame">
+                            <div class="text-center mb-2">
+                                <span class="text-amber-800 text-[10px] wanted-star">&#9733;</span>
+                                <span class="font-headline text-[13px] font-black uppercase tracking-[0.2em] text-amber-900 mx-1 wanted-label">Wanted</span>
+                                <span class="text-amber-800 text-[10px] wanted-star">&#9733;</span>
+                            </div>
+                            <div class="border-t border-amber-800 border-b border-double mb-2 py-1 wanted-rule">
+                                <h4 class="font-headline font-black text-sm uppercase tracking-widest text-amber-900 text-center wanted-title">Bounty: Architect</h4>
+                            </div>
+                            <p class="text-[10px] italic text-amber-900 leading-tight text-center mb-2 wanted-copy">Specialist in AI-powered backends. Must handle 100+ concurrent LLM calls. Inquire at Pattukkottai Desk.</p>
+                            <div class="text-center mb-3">
+                                <span class="text-[8px] text-amber-700 tracking-widest wanted-reward-line">&mdash;&mdash; REWARD &mdash;&mdash;</span>
+                                <p class="font-headline font-black text-xs uppercase tracking-wider text-amber-900 mt-0.5 wanted-reward">Your Next AI System</p>
+                            </div>
+                            <div class="border-t border-amber-800 pt-2 wanted-rule">
+                                <a class="block w-full text-center bg-amber-900 text-amber-50 text-[10px] uppercase font-bold tracking-widest py-2 hover:bg-amber-800 transition-colors wanted-cta"
+                                    href="#contact">Claim This Bounty</a>
+                            </div>
                         </div>
-                        <p class="text-xs italic mb-4">Looking for an AI-powered backend architect? Available for remote
-                            work.</p>
-                        <a class="block w-full text-center bg-news-ink text-white text-[10px] uppercase font-bold tracking-widest py-2 hover:bg-primary transition-colors"
-                            href="#contact">Contact</a>
                     </div>
                 </div>
             </section>
             <section class="mb-24" id="contact">
-                <div class="flex justify-between items-center mb-6">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-2">
                     <span class="text-xs font-bold uppercase tracking-[0.2em] bg-news-ink text-white px-2 py-1">Letters
                         &amp; Correspondence</span>
                     <span class="text-xs font-serif italic text-gray-500">Section E — Reader Services</span>
@@ -780,40 +1033,42 @@
                     rootMargin: '300px 0px'
                 });
 
-                // Play observer — trigger ink phases + video playback
+                // Play observer — trigger ink phases + looping video playback
+                function startInkCycle(el) {
+                    // Reset classes
+                    el.classList.remove('ink-dark', 'ink-spread', 'ink-fade');
+
+                    // Phase 1: dark ink lands
+                    el.classList.add('ink-dark');
+                    if (canWebM) {
+                        el.currentTime = 0;
+                        var p = el.play();
+                        if (p && p.catch) p.catch(function () {});
+                    }
+
+                    // Phase 2: ink spreads
+                    setTimeout(function () {
+                        el.classList.remove('ink-dark');
+                        el.classList.add('ink-spread');
+                    }, 800);
+
+                    // Phase 3: fade to stain, then restart after pause
+                    setTimeout(function () {
+                        el.classList.remove('ink-spread');
+                        el.classList.add('ink-fade');
+
+                        // Pause before restarting the cycle
+                        setTimeout(function () {
+                            startInkCycle(el);
+                        }, 8000);
+                    }, 5000);
+                }
+
                 var inkObs = new IntersectionObserver(function (entries) {
                     entries.forEach(function (e) {
                         if (e.isIntersecting) {
-                            var el = e.target;
-
-                            // Phase 1: dark ink lands (0–0.8s)
-                            el.classList.add('ink-dark');
-                            if (canWebM) {
-                                var p = el.play();
-                                if (p && p.catch) p.catch(function () {});
-                            }
-
-                            // Phase 2: ink spreads (0.8–5s)
-                            setTimeout(function () {
-                                el.classList.remove('ink-dark');
-                                el.classList.add('ink-spread');
-                            }, 800);
-
-                            // Phase 3: fade — triggered by video end OR 5s safety timeout
-                            var faded = false;
-
-                            function fadeOut() {
-                                if (faded) return;
-                                faded = true;
-                                el.classList.remove('ink-spread');
-                                el.classList.add('ink-fade');
-                            }
-                            el.addEventListener('ended', fadeOut, {
-                                once: true
-                            });
-                            setTimeout(fadeOut, 5000);
-
-                            inkObs.unobserve(el);
+                            startInkCycle(e.target);
+                            inkObs.unobserve(e.target);
                         }
                     });
                 }, {
@@ -855,6 +1110,40 @@
             }
 
             setTimeout(tick, 500);
+        })();
+
+        // --- Evening Edition Toggle ---
+        function toggleEdition() {
+            var body = document.body;
+            var isEvening = body.classList.toggle('evening-edition');
+            var desktopBtn = document.getElementById('edition-toggle-desktop');
+            var mobileBtn = document.getElementById('edition-toggle-mobile');
+            var weatherBtn = document.getElementById('edition-toggle-weather');
+            var weatherIcon = document.getElementById('weather-icon');
+            var weatherText = document.getElementById('weather-text');
+            if (isEvening) {
+                if (desktopBtn) desktopBtn.textContent = 'MORN';
+                if (desktopBtn) desktopBtn.title = 'Switch to Morning Edition';
+                if (mobileBtn) mobileBtn.textContent = 'Morning Ed.';
+                if (weatherIcon) weatherIcon.src = 'images/icon-sun.png';
+                if (weatherText) weatherText.textContent = 'Clear Skies, 24°C';
+                if (weatherBtn) weatherBtn.title = 'Switch to Morning Edition';
+            } else {
+                if (desktopBtn) desktopBtn.textContent = 'EVE';
+                if (desktopBtn) desktopBtn.title = 'Switch to Evening Edition';
+                if (mobileBtn) mobileBtn.textContent = 'Evening Ed.';
+                if (weatherIcon) weatherIcon.src = 'images/icon-moon.png';
+                if (weatherText) weatherText.textContent = 'Partly Cloudy, 29°C';
+                if (weatherBtn) weatherBtn.title = 'Switch to Evening Edition';
+            }
+            try { localStorage.setItem('edition', isEvening ? 'evening' : 'morning'); } catch (e) {}
+        }
+
+        // Restore saved edition preference
+        (function () {
+            try {
+                if (localStorage.getItem('edition') === 'evening') toggleEdition();
+            } catch (e) {}
         })();
     </script>
 </body>
