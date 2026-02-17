@@ -1,0 +1,368 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+main img {
+    filter: saturate(0.55);
+}
+
+body {
+    font-feature-settings: "kern", "liga", "onum";
+    -webkit-font-smoothing: antialiased;
+    background-color: #FAFAF8;
+}
+
+.text-justify-newspaper {
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+}
+
+/* Halftone Dot Texture */
+.halftone-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.halftone-container::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, #000 1.2px, transparent 1.2px);
+    background-size: 4px 4px;
+    opacity: 0.12;
+    pointer-events: none;
+    mix-blend-mode: multiply;
+    transition: opacity 0.5s ease;
+}
+
+.halftone-container:hover::after {
+    opacity: 0.04;
+}
+
+.evening-edition .halftone-container::after {
+    background-image: radial-gradient(circle, #fff 1.2px, transparent 1.2px);
+    opacity: 0.08;
+}
+
+/* Classifieds Styling */
+.classified-ad {
+    border: 1px solid var(--news-ink);
+    padding: 0.75rem;
+    position: relative;
+    transition: transform 0.2s ease;
+}
+
+.classified-ad:hover {
+    transform: scale(1.02);
+    z-index: 10;
+    background-color: white;
+    box-shadow: 4px 4px 0px var(--news-ink);
+}
+
+.evening-edition .classified-ad:hover {
+    background-color: #2a2a2a;
+    box-shadow: 4px 4px 0px #e8e0d4;
+}
+
+/* Wanted poster: evening-edition palette */
+body.evening-edition .wanted-poster {
+    background-color: #221d17 !important;
+    border-color: #caa66c !important;
+}
+
+body.evening-edition .wanted-poster:hover {
+    background-color: #2b241b !important;
+    box-shadow: 4px 4px 0px #caa66c;
+}
+
+body.evening-edition .wanted-poster .wanted-frame,
+body.evening-edition .wanted-poster .wanted-rule {
+    border-color: #caa66c !important;
+}
+
+body.evening-edition .wanted-poster .wanted-ornament,
+body.evening-edition .wanted-poster .wanted-star,
+body.evening-edition .wanted-poster .wanted-label,
+body.evening-edition .wanted-poster .wanted-title,
+body.evening-edition .wanted-poster .wanted-copy,
+body.evening-edition .wanted-poster .wanted-reward,
+body.evening-edition .wanted-poster .wanted-reward-line {
+    color: #f1d6a8 !important;
+}
+
+body.evening-edition .wanted-poster .wanted-cta {
+    background-color: #caa66c !important;
+    color: #1a1a1a !important;
+}
+
+body.evening-edition .wanted-poster .wanted-cta:hover {
+    background-color: #ddb982 !important;
+}
+
+.drop-cap::first-letter {
+    float: left;
+    font-family: 'UnifrakturMaguntia', 'Playfair Display', serif;
+    font-size: 7rem;
+    line-height: 0.55;
+    padding-right: 0.6rem;
+    padding-top: 0.3rem;
+    font-weight: 400;
+    color: #1a1a1a;
+}
+
+/* Scroll reveal */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.5, 0, 0, 1), transform 0.8s cubic-bezier(0.5, 0, 0, 1);
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Paper lift hover */
+.paper-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.paper-lift:hover {
+    transform: translateY(-4px) rotate(-0.3deg);
+    box-shadow: 4px 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Typewriter cursor */
+.tw-cursor::after {
+    content: '\258C';
+    animation: cursor-blink 0.7s step-end infinite;
+    margin-left: 1px;
+}
+
+@keyframes cursor-blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+/* Ink blot scroll effect */
+.ink-blot {
+    position: absolute;
+    z-index: 5;
+    width: 80vw;
+    max-width: 1200px;
+    pointer-events: none;
+    mix-blend-mode: multiply;
+    object-fit: contain;
+    opacity: 0;
+    transform: scale(0.3);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+    transition: opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.ink-blot.ink-dark {
+    opacity: 0.55;
+    transform: scale(0.85);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.ink-blot.ink-spread {
+    opacity: 0.10;
+    transform: scale(1);
+    transition: opacity 1.8s ease-out, transform 1.8s ease-out;
+}
+
+.ink-blot.ink-fade {
+    opacity: 0.08;
+    transform: scale(1.03);
+    transition: opacity 2.5s ease-out, transform 2.5s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+
+    .paper-lift:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    .ink-blot {
+        display: none;
+    }
+}
+
+/* Breaking news ticker */
+.ticker-wrap {
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.ticker-content {
+    display: inline-block;
+    animation: ticker-scroll 45s linear infinite;
+}
+
+.ticker-content:hover {
+    animation-play-state: paused;
+}
+
+@keyframes ticker-scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* Newspaper fold line */
+.fold-line {
+    position: relative;
+    height: 12px;
+    margin: 3rem 0;
+}
+
+.fold-line::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -5%;
+    right: -5%;
+    height: 1px;
+    background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(0, 0, 0, 0.06) 10%,
+            rgba(0, 0, 0, 0.12) 50%,
+            rgba(0, 0, 0, 0.06) 90%,
+            transparent 100%);
+}
+
+.fold-line::after {
+    content: '';
+    position: absolute;
+    top: calc(50% + 1px);
+    left: -5%;
+    right: -5%;
+    height: 4px;
+    background: linear-gradient(180deg,
+            rgba(0, 0, 0, 0.04) 0%,
+            transparent 100%);
+}
+
+/* Evening edition (dark mode) */
+.evening-edition {
+    --news-paper: #1a1a1a;
+    --news-ink: #e8e0d4;
+    --news-gray: #333;
+    --news-line: #444;
+}
+
+.evening-edition body,
+body.evening-edition {
+    background-color: #1a1a1a;
+    color: #e8e0d4;
+}
+
+body.evening-edition .bg-news-paper {
+    background-color: #1a1a1a !important;
+}
+
+body.evening-edition .text-news-ink {
+    color: #e8e0d4 !important;
+}
+
+body.evening-edition .border-news-ink {
+    border-color: #e8e0d4 !important;
+}
+
+body.evening-edition .bg-news-ink {
+    background-color: #e8e0d4 !important;
+    color: #1a1a1a !important;
+}
+
+body.evening-edition .text-gray-800,
+body.evening-edition .text-gray-900,
+body.evening-edition .text-gray-700 {
+    color: #c8c0b4 !important;
+}
+
+body.evening-edition .text-gray-500,
+body.evening-edition .text-gray-400 {
+    color: #8a8278 !important;
+}
+
+body.evening-edition .border-gray-300,
+body.evening-edition .border-gray-200 {
+    border-color: #3a3a3a !important;
+}
+
+body.evening-edition .bg-gray-50,
+body.evening-edition .bg-gray-100,
+body.evening-edition .bg-white {
+    background-color: #242424 !important;
+}
+
+body.evening-edition img:not(.no-invert) {
+    filter: grayscale(100%) contrast(110%) brightness(0.85);
+}
+
+body.evening-edition #weather-icon {
+    filter: invert(1);
+}
+
+body.evening-edition .mix-blend-multiply {
+    opacity: 0.15 !important;
+}
+
+body.evening-edition .ink-blot {
+    mix-blend-mode: screen;
+    filter: grayscale(100%) invert(1) contrast(125%) brightness(1.12);
+}
+
+body.evening-edition .ink-blot.ink-dark {
+    opacity: 0.7;
+}
+
+body.evening-edition .ink-blot.ink-spread {
+    opacity: 0.22;
+}
+
+body.evening-edition .ink-blot.ink-fade {
+    opacity: 0.16;
+}
+
+.vertical-masthead {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+}
+
+.hairline-b {
+    border-bottom-width: 0.5px;
+    border-color: #1a1a1a;
+}
+
+.hairline-t {
+    border-top-width: 0.5px;
+    border-color: #1a1a1a;
+}
+
+.hairline-r {
+    border-right-width: 0.5px;
+    border-color: #1a1a1a;
+}
+
+.hairline-l {
+    border-left-width: 0.5px;
+    border-color: #1a1a1a;
+}

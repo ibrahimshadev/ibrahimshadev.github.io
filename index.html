@@ -26,409 +26,27 @@
     <meta name="twitter:title" content="The Ibrahimsha Times" />
     <meta name="twitter:description" content="Portfolio of Ibrahimsha — Backend & AI Systems Engineer specializing in RAG platforms, multi-agent architectures, and production ML systems." />
     <meta name="twitter:image" content="https://ibrahimsha.is-a.dev/images/og-image.png" />
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Pre-built Tailwind CSS (replaces render-blocking CDN script) -->
+    <link rel="stylesheet" href="styles.css" />
+
+    <!-- Preload critical above-the-fold assets -->
+    <link rel="preload" href="images/hero.webp" as="image" fetchpriority="high" />
+    <link rel="preload" href="images/paper-bg.webp" as="image" />
+
+    <!-- Google Fonts: non-render-blocking with media=print trick -->
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
     <link
         href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&amp;family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&amp;family=Cinzel:wght@400;700&amp;family=Cinzel+Decorative:wght@700;900&amp;family=UnifrakturMaguntia&amp;display=swap"
-        rel="stylesheet" />
+        rel="stylesheet" media="print" onload="this.media='all'" />
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-        rel="stylesheet" />
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#7a1f1a",
-                        "news-ink": "#1a1a1a",
-                        "news-paper": "#FAFAF8",
-                        "news-gray": "#e5e5e5",
-                        "news-line": "#d1d1d1",
-                    },
-                    fontFamily: {
-                        "display": ["Newsreader", "serif"],
-                        "masthead": ["Playfair Display", "serif"],
-                        "headline": ["Libre Baskerville", "serif"],
-                        "sans-serif": ["Cinzel", "serif"],
-                    },
-                    borderWidth: {
-                        'hairline': '0.5px',
-                    },
-                    backgroundImage: {
-                        'paper-texture': "url(\"data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E\")",
-                    }
-                },
-            },
-        }
-    </script>
-    <style>
-        main img {
-            filter: saturate(0.55);
-        }
-
-        body {
-            font-feature-settings: "kern", "liga", "onum";
-            -webkit-font-smoothing: antialiased;
-            background-color: #FAFAF8;
-        }
-
-        .text-justify-newspaper {
-            text-align: justify;
-            text-justify: inter-word;
-            hyphens: auto;
-            -webkit-hyphens: auto;
-            -ms-hyphens: auto;
-        }
-
-        /* Halftone Dot Texture */
-        .halftone-container {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .halftone-container::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background-image: radial-gradient(circle, #000 1.2px, transparent 1.2px);
-            background-size: 4px 4px;
-            opacity: 0.12;
-            pointer-events: none;
-            mix-blend-mode: multiply;
-            transition: opacity 0.5s ease;
-        }
-
-        .halftone-container:hover::after {
-            opacity: 0.04;
-        }
-
-        .evening-edition .halftone-container::after {
-            background-image: radial-gradient(circle, #fff 1.2px, transparent 1.2px);
-            opacity: 0.08;
-        }
-
-        /* Classifieds Styling */
-        .classified-ad {
-            border: 1px solid var(--news-ink);
-            padding: 0.75rem;
-            position: relative;
-            transition: transform 0.2s ease;
-        }
-
-        .classified-ad:hover {
-            transform: scale(1.02);
-            z-index: 10;
-            background-color: white;
-            box-shadow: 4px 4px 0px var(--news-ink);
-        }
-
-        .evening-edition .classified-ad:hover {
-            background-color: #2a2a2a;
-            box-shadow: 4px 4px 0px #e8e0d4;
-        }
-
-        /* Wanted poster: evening-edition palette */
-        body.evening-edition .wanted-poster {
-            background-color: #221d17 !important;
-            border-color: #caa66c !important;
-        }
-
-        body.evening-edition .wanted-poster:hover {
-            background-color: #2b241b !important;
-            box-shadow: 4px 4px 0px #caa66c;
-        }
-
-        body.evening-edition .wanted-poster .wanted-frame,
-        body.evening-edition .wanted-poster .wanted-rule {
-            border-color: #caa66c !important;
-        }
-
-        body.evening-edition .wanted-poster .wanted-ornament,
-        body.evening-edition .wanted-poster .wanted-star,
-        body.evening-edition .wanted-poster .wanted-label,
-        body.evening-edition .wanted-poster .wanted-title,
-        body.evening-edition .wanted-poster .wanted-copy,
-        body.evening-edition .wanted-poster .wanted-reward,
-        body.evening-edition .wanted-poster .wanted-reward-line {
-            color: #f1d6a8 !important;
-        }
-
-        body.evening-edition .wanted-poster .wanted-cta {
-            background-color: #caa66c !important;
-            color: #1a1a1a !important;
-        }
-
-        body.evening-edition .wanted-poster .wanted-cta:hover {
-            background-color: #ddb982 !important;
-        }
-
-        .drop-cap::first-letter {
-            float: left;
-            font-family: 'UnifrakturMaguntia', 'Playfair Display', serif;
-            font-size: 7rem;
-            line-height: 0.55;
-            padding-right: 0.6rem;
-            padding-top: 0.3rem;
-            font-weight: 400;
-            color: #1a1a1a;
-        }
-
-        /* Scroll reveal */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s cubic-bezier(0.5, 0, 0, 1), transform 0.8s cubic-bezier(0.5, 0, 0, 1);
-        }
-
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Paper lift hover */
-        .paper-lift {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .paper-lift:hover {
-            transform: translateY(-4px) rotate(-0.3deg);
-            box-shadow: 4px 6px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Typewriter cursor */
-        .tw-cursor::after {
-            content: '\258C';
-            animation: cursor-blink 0.7s step-end infinite;
-            margin-left: 1px;
-        }
-
-        @keyframes cursor-blink {
-            50% {
-                opacity: 0;
-            }
-        }
-
-        /* Ink blot scroll effect */
-        .ink-blot {
-            position: absolute;
-            z-index: 5;
-            width: 80vw;
-            max-width: 1200px;
-            pointer-events: none;
-            mix-blend-mode: multiply;
-            object-fit: contain;
-            opacity: 0;
-            transform: scale(0.3);
-            -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
-            mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
-            transition: opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .ink-blot.ink-dark {
-            opacity: 0.55;
-            transform: scale(0.85);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-
-        .ink-blot.ink-spread {
-            opacity: 0.10;
-            transform: scale(1);
-            transition: opacity 1.8s ease-out, transform 1.8s ease-out;
-        }
-
-        .ink-blot.ink-fade {
-            opacity: 0.08;
-            transform: scale(1.03);
-            transition: opacity 2.5s ease-out, transform 2.5s ease-out;
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .reveal {
-                opacity: 1 !important;
-                transform: none !important;
-                transition: none !important;
-            }
-
-            .paper-lift:hover {
-                transform: none;
-                box-shadow: none;
-            }
-
-            .ink-blot {
-                display: none;
-            }
-        }
-
-        /* Breaking news ticker */
-        .ticker-wrap {
-            overflow: hidden;
-            white-space: nowrap;
-        }
-
-        .ticker-content {
-            display: inline-block;
-            animation: ticker-scroll 45s linear infinite;
-        }
-
-        .ticker-content:hover {
-            animation-play-state: paused;
-        }
-
-        @keyframes ticker-scroll {
-            0% {
-                transform: translateX(0);
-            }
-
-            100% {
-                transform: translateX(-50%);
-            }
-        }
-
-        /* Newspaper fold line */
-        .fold-line {
-            position: relative;
-            height: 12px;
-            margin: 3rem 0;
-        }
-
-        .fold-line::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: -5%;
-            right: -5%;
-            height: 1px;
-            background: linear-gradient(90deg,
-                    transparent 0%,
-                    rgba(0, 0, 0, 0.06) 10%,
-                    rgba(0, 0, 0, 0.12) 50%,
-                    rgba(0, 0, 0, 0.06) 90%,
-                    transparent 100%);
-        }
-
-        .fold-line::after {
-            content: '';
-            position: absolute;
-            top: calc(50% + 1px);
-            left: -5%;
-            right: -5%;
-            height: 4px;
-            background: linear-gradient(180deg,
-                    rgba(0, 0, 0, 0.04) 0%,
-                    transparent 100%);
-        }
-
-        /* Evening edition (dark mode) */
-        .evening-edition {
-            --news-paper: #1a1a1a;
-            --news-ink: #e8e0d4;
-            --news-gray: #333;
-            --news-line: #444;
-        }
-
-        .evening-edition body,
-        body.evening-edition {
-            background-color: #1a1a1a;
-            color: #e8e0d4;
-        }
-
-        body.evening-edition .bg-news-paper {
-            background-color: #1a1a1a !important;
-        }
-
-        body.evening-edition .text-news-ink {
-            color: #e8e0d4 !important;
-        }
-
-        body.evening-edition .border-news-ink {
-            border-color: #e8e0d4 !important;
-        }
-
-        body.evening-edition .bg-news-ink {
-            background-color: #e8e0d4 !important;
-            color: #1a1a1a !important;
-        }
-
-        body.evening-edition .text-gray-800,
-        body.evening-edition .text-gray-900,
-        body.evening-edition .text-gray-700 {
-            color: #c8c0b4 !important;
-        }
-
-        body.evening-edition .text-gray-500,
-        body.evening-edition .text-gray-400 {
-            color: #8a8278 !important;
-        }
-
-        body.evening-edition .border-gray-300,
-        body.evening-edition .border-gray-200 {
-            border-color: #3a3a3a !important;
-        }
-
-        body.evening-edition .bg-gray-50,
-        body.evening-edition .bg-gray-100,
-        body.evening-edition .bg-white {
-            background-color: #242424 !important;
-        }
-
-        body.evening-edition img:not(.no-invert) {
-            filter: grayscale(100%) contrast(110%) brightness(0.85);
-        }
-
-        body.evening-edition #weather-icon {
-            filter: invert(1);
-        }
-
-        body.evening-edition .mix-blend-multiply {
-            opacity: 0.15 !important;
-        }
-
-        body.evening-edition .ink-blot {
-            mix-blend-mode: screen;
-            filter: grayscale(100%) invert(1) contrast(125%) brightness(1.12);
-        }
-
-        body.evening-edition .ink-blot.ink-dark {
-            opacity: 0.7;
-        }
-
-        body.evening-edition .ink-blot.ink-spread {
-            opacity: 0.22;
-        }
-
-        body.evening-edition .ink-blot.ink-fade {
-            opacity: 0.16;
-        }
-
-        .vertical-masthead {
-            writing-mode: vertical-rl;
-            text-orientation: mixed;
-            transform: rotate(180deg);
-        }
-
-        .hairline-b {
-            border-bottom-width: 0.5px;
-            border-color: #1a1a1a;
-        }
-
-        .hairline-t {
-            border-top-width: 0.5px;
-            border-color: #1a1a1a;
-        }
-
-        .hairline-r {
-            border-right-width: 0.5px;
-            border-color: #1a1a1a;
-        }
-
-        .hairline-l {
-            border-left-width: 0.5px;
-            border-color: #1a1a1a;
-        }
-    </style>
+        rel="stylesheet" media="print" onload="this.media='all'" />
+    <!-- Fallback for no-JS -->
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&amp;family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&amp;family=Cinzel:wght@400;700&amp;family=Cinzel+Decorative:wght@700;900&amp;family=UnifrakturMaguntia&amp;display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    </noscript>
 </head>
 
 <body
@@ -505,7 +123,7 @@
                         <a href="https://www.linkedin.com/in/ibrahim-sha-dev/" target="_blank" class="font-bold text-news-ink hover:text-primary transition-colors">LinkedIn</a>
                     </div>
                     <button onclick="toggleEdition()" id="edition-toggle-weather" class="flex items-center gap-1.5 cursor-pointer" title="Switch to Evening Edition">
-                        <img id="weather-icon" src="images/icon-moon.png" alt="Toggle edition" class="w-7 h-7 object-contain no-invert">
+                        <img id="weather-icon" src="images/icon-moon.webp" alt="Toggle edition" class="w-7 h-7 object-contain no-invert">
                         <span id="weather-text" class="text-[10px] text-gray-400">Partly Cloudy, 29°C</span>
                     </button>
                 </div>
@@ -550,7 +168,7 @@
                             <div class="w-full bg-gray-100 relative overflow-hidden halftone-container">
                                 <img alt="Portrait of Ibrahimsha — Senior Backend & AI Systems Engineer"
                                     class="w-full hover:scale-105 transition-transform duration-1000 ease-out"
-                                    src="images/hero.webp" />
+                                    src="images/hero.webp" fetchpriority="high" />
                             </div>
                             <figcaption class="flex justify-between items-start mt-3 border-t border-news-ink pt-2">
                                 <span class="text-[10px] uppercase tracking-wider font-bold">Fig. 1</span>
@@ -595,7 +213,7 @@
                             <div
                                 class="">
                                 <img alt="Voxly announcement — cross-platform dictation"
-                                    class="w-full" src="images/voxly-banner.webp" />
+                                    class="w-full" src="images/voxly-banner.webp" loading="lazy" />
                             </div>
                             <figcaption class="flex justify-between items-start mt-3 border-t border-news-ink pt-2">
                                 <span class="text-[10px] uppercase tracking-wider font-bold">Fig. 0</span>
@@ -664,7 +282,7 @@
                                 class="border border-gray-200 p-2 bg-white shadow-sm rotate-1 hover:rotate-0 transition-transform duration-500 halftone-container">
                                 <img alt="AI command and analysis hub"
                                     class="w-full aspect-[4/5] object-cover"
-                                    src="images/card1-ai-pipeline.webp" />
+                                    src="images/card1-ai-pipeline.webp" loading="lazy" />
                             </div>
                             <figcaption class="text-[10px] text-right mt-2 italic text-gray-500">Fig 2. Multi-agent RAG
                                 pipeline dashboard.</figcaption>
@@ -676,7 +294,7 @@
                             <div class="halftone-container">
                                 <img alt="OSINT cybersecurity operations center"
                                     class="w-full aspect-[4/5] object-cover"
-                                    src="images/card2-cybersecurity.webp" />
+                                    src="images/card2-cybersecurity.webp" loading="lazy" />
                             </div>
                             <figcaption
                                 class="text-[10px] mt-2 italic text-gray-500 border-l border-news-ink pl-2 ml-2">Fig 3.
@@ -716,7 +334,7 @@
                                 <div class="absolute inset-0 border border-news-ink translate-x-1 translate-y-1"></div>
                                 <img alt="Server room with network testing terminal"
                                     class="relative w-full aspect-[4/5] object-cover z-10 border border-news-ink bg-white"
-                                    src="images/card3-network-testing.webp" />
+                                    src="images/card3-network-testing.webp" loading="lazy" />
                             </div>
                             <figcaption class="text-[10px] uppercase tracking-widest mt-3 text-right">Fig 4. Testing
                                 Pipeline Output</figcaption>
@@ -1142,14 +760,14 @@
                 if (desktopBtn) desktopBtn.textContent = 'MORN';
                 if (desktopBtn) desktopBtn.title = 'Switch to Morning Edition';
                 if (mobileBtn) mobileBtn.textContent = 'Morning Ed.';
-                if (weatherIcon) weatherIcon.src = 'images/icon-sun.png';
+                if (weatherIcon) weatherIcon.src = 'images/icon-sun.webp';
                 if (weatherText) weatherText.textContent = 'Clear Skies, 24°C';
                 if (weatherBtn) weatherBtn.title = 'Switch to Morning Edition';
             } else {
                 if (desktopBtn) desktopBtn.textContent = 'EVE';
                 if (desktopBtn) desktopBtn.title = 'Switch to Evening Edition';
                 if (mobileBtn) mobileBtn.textContent = 'Evening Ed.';
-                if (weatherIcon) weatherIcon.src = 'images/icon-moon.png';
+                if (weatherIcon) weatherIcon.src = 'images/icon-moon.webp';
                 if (weatherText) weatherText.textContent = 'Partly Cloudy, 29°C';
                 if (weatherBtn) weatherBtn.title = 'Switch to Evening Edition';
             }
