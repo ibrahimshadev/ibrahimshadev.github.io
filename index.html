@@ -61,7 +61,7 @@
                     style="font-family: 'UnifrakturMaguntia', serif;">The Ibrahimsha Times</h1>
                 <div
                     class="text-[10px] uppercase tracking-[0.2em] mt-2 border-t border-b border-news-ink py-1 flex items-center justify-center gap-3">
-                    <span>Monday, Feb 16, 2026</span>
+                    <span id="date-mobile"></span>
                     <span class="text-news-line">|</span>
                     <a href="https://github.com/ibrahimshadev" target="_blank"
                         class="hover:text-primary transition-colors">GitHub</a>
@@ -82,7 +82,7 @@
                     The Ibrahimsha Times
                 </h1>
                 <div class="text-[10px] font-bold uppercase tracking-[0.3em] vertical-masthead whitespace-nowrap pb-8">
-                    Monday, Feb 16, 2026
+                    <span id="date-desktop"></span>
                 </div>
                 <div class="flex flex-col items-center gap-3 pb-4">
                     <a href="https://github.com/ibrahimshadev" target="_blank"
@@ -100,20 +100,15 @@
         </header>
         <main class="flex-1 px-6 md:px-12 py-12 lg:px-20 lg:py-16 bg-news-paper"
             style="position: relative; overflow: hidden;">
-            <video class="ink-blot" muted playsinline loop preload="none" aria-hidden="true"
-                style="top: 2%; right: -8%; width: 55vw; rotate: 180deg;">
+            <video class="ink-blot ink-blot-1" muted playsinline loop preload="none" aria-hidden="true">
                 <source src="videos/ink-drops.webm" type="video/webm"></video>
-            <video class="ink-blot" muted playsinline loop preload="none" aria-hidden="true"
-                style="top: 22%; left: -12%; width: 65vw; rotate: 40deg;">
+            <video class="ink-blot ink-blot-2" muted playsinline loop preload="none" aria-hidden="true">
                 <source src="videos/ink-splash.webm" type="video/webm"></video>
-            <video class="ink-blot" muted playsinline loop preload="none" aria-hidden="true"
-                style="top: 45%; left: -5%; width: 70vw;">
+            <video class="ink-blot ink-blot-3" muted playsinline loop preload="none" aria-hidden="true">
                 <source src="videos/ink-drops.webm" type="video/webm"></video>
-            <video class="ink-blot" muted playsinline loop preload="none" aria-hidden="true"
-                style="top: 63%; right: -8%; width: 50vw; rotate: 270deg;">
+            <video class="ink-blot ink-blot-4" muted playsinline loop preload="none" aria-hidden="true">
                 <source src="videos/ink-splash.webm" type="video/webm"></video>
-            <video class="ink-blot" muted playsinline loop preload="none" aria-hidden="true"
-                style="top: 85%; left: 5%; width: 40vw; rotate: 135deg;">
+            <video class="ink-blot ink-blot-5" muted playsinline loop preload="none" aria-hidden="true">
                 <source src="videos/ink-splattered.webm" type="video/webm"></video>
             <div class="border-b border-news-ink pb-2 mb-16 font-sans">
                 <div class="hidden md:flex items-center justify-between text-[9px] uppercase tracking-[0.2em] text-gray-400 mb-2 pb-1.5 border-b border-dotted border-gray-300">
@@ -142,8 +137,6 @@
                     <span class="italic font-masthead font-normal">Senior Engineer Ships AI Systems Remotely From
                         Southern India</span>
                 </h2>
-                <img src="images/wax-seal.webp" alt="Software Developer seal"
-                    class="absolute -top-12 -left-15 md:-top-16 md:-left-20 w-16 md:w-24 lg:w-32 z-20 rotate-[-18deg] pointer-events-none drop-shadow-lg no-invert" />
                 <div
                     class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start mt-12 border-t border-news-ink pt-8">
                     <div class="lg:col-span-3 flex flex-col justify-between h-full">
@@ -165,10 +158,14 @@
                     </div>
                     <div class="lg:col-span-6">
                         <figure class="block w-full">
-                            <div class="w-full bg-gray-100 relative overflow-hidden halftone-container">
+                            <div class="w-full relative">
+                                <img src="images/wax-seal.webp" alt="Software Developer seal"
+                                    class="absolute top-1 left-1 w-20 md:-top-16 md:-left-14 md:w-32 lg:-top-20 lg:-left-16 lg:w-40 rotate-[-18deg] pointer-events-none drop-shadow-lg no-invert z-20" />
+                                <div class="w-full bg-gray-100 relative overflow-hidden halftone-container">
                                 <img alt="Portrait of Ibrahimsha — Senior Backend & AI Systems Engineer"
-                                    class="w-full hover:scale-105 transition-transform duration-1000 ease-out"
+                                    class="w-full"
                                     src="images/hero.webp" fetchpriority="high" />
+                                </div>
                             </div>
                             <figcaption class="flex justify-between items-start mt-3 border-t border-news-ink pt-2">
                                 <span class="text-[10px] uppercase tracking-wider font-bold">Fig. 1</span>
@@ -609,6 +606,16 @@
         </main>
     </div>
     <script>
+        // --- Dynamic Date ---
+        (function () {
+            var d = new Date();
+            var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            var str = days[d.getDay()] + ', ' + months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+            document.getElementById('date-mobile').textContent = str;
+            document.getElementById('date-desktop').textContent = str;
+        })();
+
         (function () {
             var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
