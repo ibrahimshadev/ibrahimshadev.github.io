@@ -197,7 +197,7 @@
                     <a href="#open-source" class="text-[10px] uppercase tracking-[0.2em] italic text-gray-400 hover:text-primary transition-colors">Continued on Page A2 →</a>
                 </div>
             </section>
-            <section class="mb-24" id="open-source">
+            <section class="mb-24 relative" id="open-source">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-2">
                     <span class="text-xs font-bold uppercase tracking-[0.2em] bg-primary text-white px-2 py-1">Special
                         Edition — Open Source</span>
@@ -206,12 +206,14 @@
                 </div>
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start border-t border-news-ink pt-8">
                     <div class="lg:col-span-7">
-                        <figure class="block w-full">
+                        <figure class="block w-full relative">
                             <div
                                 class="">
                                 <img alt="Voxly announcement — cross-platform dictation"
                                     class="w-full" src="images/voxly-banner.webp" loading="lazy" />
                             </div>
+                            <img src="images/paper-clip.webp" alt="" aria-hidden="true"
+                                class="hidden lg:block absolute pointer-events-none drop-shadow-md no-invert z-20" style="width:120px; bottom:-20px; left:-30px; transform:rotate(15deg);" loading="lazy" />
                             <figcaption class="flex justify-between items-start mt-3 border-t border-news-ink pt-2">
                                 <span class="text-[10px] uppercase tracking-wider font-bold">Fig. 0</span>
                                 <span class="text-xs italic font-serif text-gray-600 max-w-xs text-right">Artist's
@@ -250,7 +252,7 @@
                     <a href="#careers" class="text-[10px] uppercase tracking-[0.2em] italic text-gray-400 hover:text-primary transition-colors">Continued on Page A3 →</a>
                 </div>
             </section>
-            <section class="mb-24" id="careers">
+            <section class="mb-24 relative" id="careers">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-2">
                     <span class="text-xs font-bold uppercase tracking-[0.2em] bg-news-ink text-white px-2 py-1">Recent
                         Developments</span>
@@ -276,7 +278,7 @@
                         </div>
                         <figure class="mb-6 order-1 md:order-2">
                             <div
-                                class="border border-gray-200 p-2 bg-white shadow-sm rotate-1 hover:rotate-0 transition-transform duration-500 halftone-container">
+                                class="halftone-container">
                                 <img alt="AI command and analysis hub"
                                     class="w-full aspect-[4/5] object-cover"
                                     src="images/card1-ai-pipeline.webp" loading="lazy" />
@@ -342,7 +344,9 @@
                     <a href="#profile" class="text-[10px] uppercase tracking-[0.2em] italic text-gray-400 hover:text-primary transition-colors">Profile continues on Page B1 →</a>
                 </div>
             </section>
-            <section class="mb-24" id="profile">
+<section class="mb-24 relative" id="profile">
+                <img src="images/pocket-watch.webp" alt="" aria-hidden="true"
+                    class="hidden lg:block absolute pointer-events-none drop-shadow-md no-invert z-20 opacity-80" style="width:150px; top:10px; right:-8px; transform:rotate(12deg);" loading="lazy" />
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-2">
                     <span
                         class="text-xs font-bold uppercase tracking-[0.2em] bg-news-ink text-white px-2 py-1 shrink-0">Profile
@@ -388,7 +392,7 @@
                     </div>
                 </div>
             </section>
-            <section class="mb-24">
+            <section class="mb-24 relative">
                 <div class="flex items-baseline justify-between border-b-2 border-black mb-8 pb-2">
                     <h3 class="font-masthead text-4xl font-bold italic">Index &amp; Classifieds</h3>
                     <span class="text-xs font-bold uppercase tracking-widest">Section D</span>
@@ -504,8 +508,12 @@
                         </div>
                     </div>
                 </div>
+                <img src="images/key.webp" alt="" aria-hidden="true"
+                    class="hidden lg:block absolute pointer-events-none drop-shadow-lg no-invert z-20 opacity-90" style="width:160px; bottom:-85px; right:2rem; transform:rotate(40deg);" loading="lazy" />
             </section>
-            <section class="mb-24" id="contact">
+            <section class="mb-24 relative" id="contact">
+                <img src="images/pen.webp" alt="" aria-hidden="true"
+                    class="hidden lg:block absolute pointer-events-none drop-shadow-md no-invert z-20 opacity-80" style="width:330px; bottom:-50px; left:24%; transform:translateX(-50%) rotate(3deg);" loading="lazy" />
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-2">
                     <span class="text-xs font-bold uppercase tracking-[0.2em] bg-news-ink text-white px-2 py-1">Letters
                         &amp; Correspondence</span>
@@ -786,6 +794,175 @@
             try {
                 if (localStorage.getItem('edition') === 'evening') toggleEdition();
             } catch (e) {}
+        })();
+
+        // --- Magnifying Glass (pick-up / drop interaction) ---
+        (function () {
+            if (window.innerWidth < 1024) return;
+
+            var ZOOM    = 2.5;
+            var IMG_W   = 380;
+            var IMG_H   = 570;
+            var LENS_CX = 134;
+            var LENS_CY = 181;
+            var LENS_R  = 70;
+            var LENS_D  = LENS_R * 2;
+            var maskGrad = 'radial-gradient(circle ' + LENS_R + 'px at ' + LENS_CX + 'px ' + LENS_CY + 'px, transparent 0%, transparent ' + (LENS_R - 4) + 'px, black ' + LENS_R + 'px)';
+
+            // --- Build wrapper ---
+            var wrapper = document.createElement('div');
+            wrapper.id = 'mag-glass';
+            wrapper.style.cssText = 'width:' + IMG_W + 'px;height:' + IMG_H + 'px;pointer-events:none;z-index:9999;';
+
+            var lensDiv = document.createElement('div');
+            lensDiv.style.cssText = 'position:absolute;left:' + (LENS_CX - LENS_R) + 'px;top:' + (LENS_CY - LENS_R) + 'px;width:' + LENS_D + 'px;height:' + LENS_D + 'px;border-radius:50%;overflow:hidden;';
+
+            var inner = document.createElement('div');
+            inner.style.cssText = 'position:absolute;top:0;left:0;';
+            lensDiv.appendChild(inner);
+
+            var glassImg = document.createElement('img');
+            glassImg.src = 'images/magnifying-glass.webp';
+            glassImg.alt = 'Pick up magnifying glass';
+            glassImg.title = 'Click to pick up';
+            glassImg.style.cssText = 'position:absolute;top:0;left:0;width:' + IMG_W + 'px;height:' + IMG_H + 'px;cursor:grab;pointer-events:auto;-webkit-mask-image:' + maskGrad + ';mask-image:' + maskGrad + ';';
+
+            wrapper.appendChild(lensDiv);
+            wrapper.appendChild(glassImg);
+            document.body.appendChild(wrapper);
+
+            // --- State ---
+            var isActive = false;
+            var clone = null;
+            var cloneAge = 0;
+            var lastMX = 0, lastMY = 0;
+
+            // --- Drop the glass at a page position ---
+            function dropAt(pageX, pageY) {
+                isActive = false;
+                wrapper.style.position = 'absolute';
+                wrapper.style.left = (pageX - LENS_CX) + 'px';
+                wrapper.style.top  = (pageY - LENS_CY) + 'px';
+                glassImg.style.pointerEvents = 'auto';
+                glassImg.style.cursor = 'grab';
+                glassImg.title = 'Click to pick up';
+                document.body.style.cursor = '';
+                // Keep lens active — show magnified content at rest position
+                if (!clone || Date.now() - cloneAge > 3000) buildClone();
+                updateRestingLens();
+            }
+
+            function updateRestingLens() {
+                if (!clone || isActive) return;
+                var wLeft = parseInt(wrapper.style.left) || 0;
+                var wTop  = parseInt(wrapper.style.top) || 0;
+                var lensPageX = wLeft + LENS_CX;
+                var lensPageY = wTop + LENS_CY;
+                clone.style.left = (-lensPageX * ZOOM + LENS_R) + 'px';
+                clone.style.top  = (-lensPageY * ZOOM + LENS_R) + 'px';
+            }
+
+            // --- Pick up the glass ---
+            function pickUp() {
+                isActive = true;
+                wrapper.style.position = 'fixed';
+                glassImg.style.pointerEvents = 'none';
+                glassImg.style.cursor = '';
+                glassImg.title = '';
+                document.body.style.cursor = 'none';
+                if (!clone || Date.now() - cloneAge > 3000) buildClone();
+            }
+
+            // --- Clone management ---
+            function buildClone() {
+                if (clone) clone.remove();
+                wrapper.style.visibility = 'hidden';
+                var c = document.body.cloneNode(true);
+                wrapper.style.visibility = '';
+                [].forEach.call(c.querySelectorAll('script,noscript,iframe,#mag-glass'), function (el) { el.remove(); });
+                [].forEach.call(c.querySelectorAll('video'), function (cv) {
+                    var canvas = document.createElement('canvas');
+                    canvas.className = cv.className;
+                    canvas.style.cssText = cv.style.cssText;
+                    canvas.width = 200; canvas.height = 200;
+                    cv.replaceWith(canvas);
+                });
+                [].forEach.call(c.querySelectorAll('.reveal'), function (el) { el.classList.add('visible'); });
+                var clonedMain = c.querySelector('main');
+                if (clonedMain) clonedMain.style.overflow = 'visible';
+                c.style.cssText = 'position:absolute;top:0;left:0;width:' + document.body.scrollWidth + 'px;transform:scale(' + ZOOM + ');transform-origin:0 0;pointer-events:none;margin:0;padding:0;';
+                inner.appendChild(c);
+                clone = c;
+                cloneAge = Date.now();
+            }
+
+            function updateLens() {
+                if (!clone || !isActive) return;
+                wrapper.style.left = (lastMX - LENS_CX) + 'px';
+                wrapper.style.top  = (lastMY - LENS_CY) + 'px';
+                var pageX = lastMX + window.pageXOffset;
+                var pageY = lastMY + window.pageYOffset;
+                clone.style.left = (-pageX * ZOOM + LENS_R) + 'px';
+                clone.style.top  = (-pageY * ZOOM + LENS_R) + 'px';
+            }
+
+            // --- Events ---
+            glassImg.addEventListener('click', function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+                lastMX = e.clientX;
+                lastMY = e.clientY;
+                pickUp();
+                updateLens();
+            });
+
+            document.addEventListener('click', function (e) {
+                if (!isActive) return;
+                dropAt(e.clientX + window.pageXOffset, e.clientY + window.pageYOffset);
+            });
+
+            document.addEventListener('mousemove', function (e) {
+                lastMX = e.clientX;
+                lastMY = e.clientY;
+                if (!isActive) return;
+                if (!clone || Date.now() - cloneAge > 3000) buildClone();
+                updateLens();
+            });
+
+            window.addEventListener('scroll', function () {
+                if (isActive) updateLens();
+            });
+
+            // --- Sync video frames ---
+            var realVideos = document.body.querySelectorAll('video');
+            (function syncVideoFrames() {
+                if (clone && isActive) {
+                    var canvases = clone.querySelectorAll('canvas.ink-blot');
+                    canvases.forEach(function (canvas, i) {
+                        if (i < realVideos.length && !realVideos[i].paused && realVideos[i].readyState >= 2) {
+                            var ctx = canvas.getContext('2d');
+                            canvas.width = realVideos[i].videoWidth || 200;
+                            canvas.height = realVideos[i].videoHeight || 200;
+                            ctx.drawImage(realVideos[i], 0, 0);
+                        }
+                    });
+                }
+                requestAnimationFrame(syncVideoFrames);
+            })();
+
+            // --- Init: rest on hero ---
+            var heroSection = document.querySelector('main > section');
+            if (heroSection) {
+                var r = heroSection.getBoundingClientRect();
+                var initX = r.right - 180 + window.pageXOffset;
+                var initY = r.bottom - 250 + window.pageYOffset;
+                dropAt(initX, initY);
+                // Rebuild clone after typewriter finishes to get full text
+                setTimeout(function () {
+                    buildClone();
+                    if (!isActive) updateRestingLens();
+                }, 4000);
+            }
         })();
     </script>
 </body>
